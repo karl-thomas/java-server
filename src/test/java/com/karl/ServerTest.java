@@ -37,5 +37,16 @@ public class ServerTest {
       String resp = client.sendMessage(msg);
       assertEquals(msg, resp);
     }
+
+    @Test
+    @DisplayName("server echoes back multiple message from the same client")
+    public void echoMultipleMessageFromSameClient() throws IOException {
+      String msg = "howdy";
+      String msg2 = "there";
+      String resp = client.sendMessage(msg);
+      String resp2 = client.sendMessage(msg2);
+      assertEquals(msg, resp);
+      assertEquals(msg2, resp2);
+    }
   }
 }

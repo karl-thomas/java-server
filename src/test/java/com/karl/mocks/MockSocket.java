@@ -7,15 +7,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class MockSocket extends Socket {
-  private String streamText = "default";
-
-  public String getStreamText() {
-    return this.streamText;
-  }
-
-  public void setStreamText(String StreamText) {
-    this.streamText = StreamText;
-  }
+  public String streamText = "default";
 
   public MockSocket() {
   }

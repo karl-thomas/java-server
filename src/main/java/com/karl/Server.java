@@ -13,19 +13,23 @@ public class Server {
   private PrintWriter out;
   private BufferedReader in;
 
-  public Server(int port) throws IOException {
-    serverSocket = new ServerSocket(port);
+  public Server(ServerSocket serverSocket) {
+    this.serverSocket = serverSocket;
   }
 
   public void start() throws IOException {
-    clientSocket = serverSocket.accept();
+    clientSocket = accept();
     out = new PrintWriter(clientSocket.getOutputStream(), true);
-    in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+    in = createRequestFrom(clientSocket);
 
     String inputLine;
     while ((inputLine = in.readLine()) != null) {
       out.println(inputLine);
     }
+  }
+
+  public Socket accept() throws IOException {
+    return serverSocket.accept();
   }
 
   public BufferedReader createRequestFrom(Socket socket) throws IOException {

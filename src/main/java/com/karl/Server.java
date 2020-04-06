@@ -31,9 +31,4 @@ public class Server {
     clientSocket.close();
     serverSocket.close();
   }
-
-  public static void main(String[] args) throws IOException {
-    Server server = new Server();
-    server.start(6666);
-  }
 }

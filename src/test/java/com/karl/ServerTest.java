@@ -22,7 +22,7 @@ public class ServerTest {
     @BeforeAll
     public void setup() throws IOException {
       client = new Client();
-      client.connectTo("127.0.0.1", 6666);
+      client.connectTo(Globals.HOST, Globals.PORT);
     }
 
     @AfterAll

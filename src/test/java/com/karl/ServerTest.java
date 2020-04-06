@@ -41,5 +41,12 @@ public class ServerTest {
     server.close();
   }
 
-
+  @Test
+  @DisplayName("server can write to a socket")
+  public void serverCanSendResponse() throws IOException {
+    Server server = new Server(new MockServerSocket());
+    MockSocket mockSocket = new MockSocket();
+    server.writeTo(mockSocket, "hey there");
+    assertEquals("hey there\n", mockSocket.sentToClient());
+  }
 }

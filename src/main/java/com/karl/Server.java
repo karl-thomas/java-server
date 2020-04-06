@@ -19,13 +19,15 @@ public class Server {
 
   public void start() throws IOException {
     clientSocket = accept();
-    out = getWriterFor(clientSocket);
     in = createRequestFrom(clientSocket);
-
     String inputLine;
     while ((inputLine = in.readLine()) != null) {
-      out.println(inputLine);
+      writeTo(clientSocket, inputLine);
     }
+  }
+
+  public void writeTo(Socket socket, String message) throws IOException {
+    getWriterFor(socket).println(message);
   }
 
   public Socket accept() throws IOException {

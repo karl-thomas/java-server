@@ -26,6 +26,7 @@ public class ServerTest {
     Server server = new Server(serverSocket);
 
     assertEquals(server.accept(), socket);
+    server.close();
   }
 
   @Test
@@ -37,6 +38,7 @@ public class ServerTest {
 
     String requestCustom = server.createRequestFrom(socket).readLine();
     assertEquals(message, requestCustom);
+    server.close();
   }
 
 

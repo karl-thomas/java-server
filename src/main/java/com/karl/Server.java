@@ -19,7 +19,7 @@ public class Server {
 
   public void start() throws IOException {
     clientSocket = accept();
-    out = new PrintWriter(clientSocket.getOutputStream(), true);
+    out = getWriterFor(clientSocket);
     in = createRequestFrom(clientSocket);
 
     String inputLine;
@@ -36,10 +36,18 @@ public class Server {
     return new BufferedReader(new InputStreamReader(socket.getInputStream()));
   }
 
+  private PrintWriter getWriterFor(Socket socket) throws IOException {
+    return new PrintWriter(socket.getOutputStream(), true);
+  }
+
   public void close() throws IOException {
-    in.close();
-    out.close();
-    clientSocket.close();
-    serverSocket.close();
+    if (in != null)
+      in.close();
+    if (out != null)
+      out.close();
+    if (clientSocket != null)
+      clientSocket.close();
+    if (serverSocket != null)
+      serverSocket.close();
   }
 }

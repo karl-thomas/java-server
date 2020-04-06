@@ -4,16 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
+import com.karl.wrappers.WrappedServerSocket;
 
 public class Server {
-  private ServerSocket serverSocket;
+  private WrappedServerSocket serverSocket;
   private Socket clientSocket;
   private PrintWriter out;
   private BufferedReader in;
 
-  public Server(ServerSocket serverSocket) {
+  public Server(WrappedServerSocket serverSocket) {
     this.serverSocket = serverSocket;
   }
 

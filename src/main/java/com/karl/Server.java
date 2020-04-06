@@ -18,11 +18,10 @@ public class Server {
     clientSocket = serverSocket.accept();
     out = new PrintWriter(clientSocket.getOutputStream(), true);
     in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-    String greeting = in.readLine();
-    if (greeting.equals("hey")) {
-      out.println("HOWDY PARDNER");
-    } else {
-      out.println("BAD TIMES");
+
+    String inputLine = in.readLine();
+    if (inputLine != null) {
+      out.println(inputLine);
     }
   }
 

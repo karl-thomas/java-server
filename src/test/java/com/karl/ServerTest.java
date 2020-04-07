@@ -5,8 +5,10 @@ import java.io.IOException;
 import com.karl.mocks.MockServerSocket;
 import com.karl.mocks.MockSocketWrapper;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("unit")
 public class ServerTest {
   @Test
   @DisplayName("server can connect to a client socket")

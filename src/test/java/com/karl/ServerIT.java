@@ -11,13 +11,12 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 @TestInstance(Lifecycle.PER_CLASS)
-public class ServerAcceptanceTest {
+public class ServerIT {
   @Nested
   @TestInstance(Lifecycle.PER_CLASS)
   @DisplayName("when the server is running")
   class when_server_is_started {
     private Client client;
-    private Server server;
 
     @BeforeAll
     public void setup() throws IOException {
@@ -28,13 +27,11 @@ public class ServerAcceptanceTest {
     @AfterAll
     public void tearDown() throws IOException {
       client.close();
-      server.close();
     }
 
     @Test
     @DisplayName("server echoes back clients message")
     public void echoClientMessage() throws IOException {
-      server.start();
       String msg = "howdy";
       String resp = client.sendMessage(msg);
       assertEquals(msg, resp);
@@ -43,7 +40,6 @@ public class ServerAcceptanceTest {
     @Test
     @DisplayName("server echoes back multiple message from the same client")
     public void echoMultipleMessageFromSameClient() throws IOException {
-      server.start();
       String msg = "well hello";
       String msg2 = "there";
       String resp = client.sendMessage(msg);

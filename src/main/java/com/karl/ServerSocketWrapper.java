@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import com.karl.wrappers.WrappedServerSocket;
+import com.karl.wrappers.WrappedSocket;
 
 
 
@@ -14,8 +15,8 @@ public class ServerSocketWrapper implements WrappedServerSocket {
     this.serverSocket = new ServerSocket(port);
   }
 
-  public Socket accept() throws IOException {
-    return serverSocket.accept();
+  public WrappedSocket accept() throws IOException {
+    return new SocketWrapper(serverSocket.accept());
   }
 
   public void close() throws IOException {

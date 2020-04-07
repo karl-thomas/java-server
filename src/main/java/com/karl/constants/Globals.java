@@ -1,4 +1,4 @@
-package com.karl;
+package com.karl.constants;
 
 public class Globals {
   public static int PORT = 7777;

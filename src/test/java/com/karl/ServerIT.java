@@ -2,6 +2,7 @@ package com.karl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
+import com.karl.constants.Globals;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

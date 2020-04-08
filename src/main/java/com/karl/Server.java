@@ -15,9 +15,9 @@ public class Server {
 
   public void start() throws IOException {
     clientSocket = accept();
-    final BufferedReader in = clientSocket.getReader();
+    final BufferedReader requestReader = clientSocket.getReader();
     String inputLine;
-    while ((inputLine = in.readLine()) != null) {
+    while ((inputLine = requestReader.readLine()) != null) {
       clientSocket.write(inputLine);
     }
   }

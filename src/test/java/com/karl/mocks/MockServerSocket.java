@@ -6,6 +6,7 @@ import com.karl.wrappers.WrappedSocket;
 
 public class MockServerSocket implements WrappedServerSocket {
   public MockSocketWrapper socket = new MockSocketWrapper();
+  public boolean closeHasBeenCalled = false;
 
   public MockServerSocket() throws IOException {
   }
@@ -15,5 +16,10 @@ public class MockServerSocket implements WrappedServerSocket {
   }
 
   public void close() {
+    closeHasBeenCalled = true;
+  }
+
+  public boolean isClosed() {
+    return closeHasBeenCalled;
   }
 }

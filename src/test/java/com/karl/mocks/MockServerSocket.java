@@ -31,8 +31,8 @@ public class MockServerSocket implements WrappedServerSocket {
   public void closeAfterConnections(int timesAcceptIsCalled) {
     ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     executorService.scheduleAtFixedRate(() -> {
-      if (timesAcceptIsCalled >= acceptCallCount)
+      if (acceptCallCount >= timesAcceptIsCalled)
         close();
-    }, 0, 100, TimeUnit.MILLISECONDS);
+    }, 0, 10, TimeUnit.MILLISECONDS);
   }
 }

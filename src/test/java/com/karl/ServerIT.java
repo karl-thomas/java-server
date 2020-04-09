@@ -1,12 +1,9 @@
 package com.karl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import java.io.IOException;
 import com.karl.constants.Globals;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -38,7 +35,6 @@ public class ServerIT {
     public void echoClientMessage() throws IOException {
       String msg = "howdy";
       String resp = client.sendMessage(msg);
-      // client.close();
       assertEquals(msg, resp);
     }
 

@@ -23,37 +23,21 @@ public class ServerTest {
     server.close();
   }
 
-  // @Test
-  // @DisplayName("server writes the same message, with a newline, to the client it was sent from")
-  // public void serverCanHandleARequest() throws IOException {
-  // String message = "hello there!";
-  // MockSocketWrapper socket = new MockSocketWrapper(message);
-  // MockServerSocket serverSocket = new MockServerSocket();
-  // serverSocket.socket = socket;
-  // Server server = new Server(serverSocket);
-  // server.start();
+  @Test
+  @DisplayName("server writes the same message, with a newline, to the client it was sent from")
+  public void serverCanHandleARequest() throws IOException {
+    String message = "hello there!";
+    MockSocketWrapper mocket = new MockSocketWrapper(message);
+    MockServerSocket serverSocket = new MockServerSocket();
+    serverSocket.socket = mocket;
+    Server server = new Server(serverSocket);
 
-  // String result = socket.sentToClient();
+    serverSocket.closeAfterConnections(1);
+    server.start();
 
-  // assertEquals(message + "\n", result);
-  // server.close();
-  // }
+    String result = mocket.sentToClient();
 
-  // @Test
-  // @DisplayName("server writes the same message, with a newline, to the client it was sent from")
-  // public void serverCanHandleARequest() throws IOException {
-  // String message = "hello there!";
-  // MockSocketWrapper socket = new MockSocketWrapper(message);
-  // MockServerSocket serverSocket = new MockServerSocket();
-  // serverSocket.closeAfter2Seconds();
-  // serverSocket.socket = socket;
-  // Server server = new Server(serverSocket);
-
-  // server.start();
-
-  // String result = socket.sentToClient();
-
-  // assertEquals(message + "\n", result);
-  // server.close();
-  // }
+    assertEquals(message + "\n", result);
+    server.close();
+  }
 }

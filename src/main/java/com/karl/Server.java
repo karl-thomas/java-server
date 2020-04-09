@@ -14,11 +14,14 @@ public class Server {
   }
 
   public void start() throws IOException {
-    clientSocket = accept();
-    final BufferedReader requestReader = clientSocket.getReader();
-    String inputLine;
-    while ((inputLine = requestReader.readLine()) != null) {
-      clientSocket.write(inputLine);
+    while (!serverSocket.isClosed()) {
+      clientSocket = accept();
+      final BufferedReader requestReader = clientSocket.getReader();
+      String inputLine;
+      while ((inputLine = requestReader.readLine()) != null) {
+        clientSocket.write(inputLine);
+      }
+      clientSocket.close();
     }
   }
 

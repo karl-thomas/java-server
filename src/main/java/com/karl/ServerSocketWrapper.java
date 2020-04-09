@@ -19,4 +19,8 @@ public class ServerSocketWrapper implements WrappedServerSocket {
   public void close() throws IOException {
     serverSocket.close();
   }
+
+  public boolean isClosed() {
+    return serverSocket.isClosed();
+  }
 }

@@ -64,5 +64,20 @@ public class ServerIT {
       assertEquals(msg1, resp1);
       assertEquals(msg2, resp2);
     }
+
+    @Test
+    @DisplayName("server can handle multiple requests at the same time")
+    public void echoSimultaneousRequests() throws IOException {
+      String msg1 = "Howdy";
+      String resp1 = client.sendMessage(msg1);
+      Client client2 = new Client();
+      client2.connectTo(Globals.HOST, Globals.PORT);
+      String msg2 = "Pard'ner";
+      String resp2 = client2.sendMessage(msg2);
+      client2.close();
+      assertEquals(msg1, resp1);
+      assertEquals(msg2, resp2);
+    }
+
   }
 }

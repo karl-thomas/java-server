@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.function.Function;
 import com.karl.wrappers.WrappedSocket;
 
 public class SocketWrapper implements WrappedSocket {
@@ -22,24 +23,16 @@ public class SocketWrapper implements WrappedSocket {
     getWriter().println(message);
   }
 
-  public void run() {
-    try {
-      final BufferedReader requestReader = getReader();
-      String inputLine;
-      while ((inputLine = requestReader.readLine()) != null) {
-        write(inputLine);
-      }
-      close();
-    } catch (Exception e) {
-      System.out.print(e);
-    }
-  }
-
   public void close() throws IOException {
     socket.close();
     requestReader.close();
     responseWriter.close();
   }
+
+  // karls ideal <3
+  // public void handle(Function func) {
+  // write(func(getReader));
+  // }
 
   public PrintWriter getWriter() {
     return this.responseWriter;

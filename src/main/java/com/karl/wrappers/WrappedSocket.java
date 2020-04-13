@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public interface WrappedSocket {
+public interface WrappedSocket extends Runnable {
   public BufferedReader getReader();
 
   public PrintWriter getWriter();

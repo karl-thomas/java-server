@@ -16,12 +16,7 @@ public class Server {
   public void start() throws IOException {
     while (!serverSocket.isClosed()) {
       clientSocket = accept();
-      final BufferedReader requestReader = clientSocket.getReader();
-      String inputLine;
-      while ((inputLine = requestReader.readLine()) != null) {
-        clientSocket.write(inputLine);
-      }
-      clientSocket.close();
+      new Thread(clientSocket).start();
     }
   }
 

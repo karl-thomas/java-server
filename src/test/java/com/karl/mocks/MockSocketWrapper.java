@@ -29,6 +29,10 @@ public class MockSocketWrapper implements WrappedSocket {
     getWriter().println(message);
   }
 
+  public void run() {
+    write(textFromClient);
+  }
+
   public void close() throws IOException {
   }
 

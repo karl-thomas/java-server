@@ -22,6 +22,19 @@ public class SocketWrapper implements WrappedSocket {
     getWriter().println(message);
   }
 
+  public void run() {
+    try {
+      final BufferedReader requestReader = getReader();
+      String inputLine;
+      while ((inputLine = requestReader.readLine()) != null) {
+        write(inputLine);
+      }
+      close();
+    } catch (Exception e) {
+      System.out.print(e);
+    }
+  }
+
   public void close() throws IOException {
     socket.close();
     requestReader.close();

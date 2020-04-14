@@ -3,8 +3,8 @@ package com.karl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import com.karl.constants.Globals;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,13 +19,13 @@ public class ServerIT {
   class when_server_is_started {
     private Client client;
 
-    @BeforeAll
+    @BeforeEach
     public void setup() throws IOException {
       client = new Client();
       client.connectTo(Globals.HOST, Globals.PORT);
     }
 
-    @AfterAll
+    @AfterEach
     public void tearDown() throws IOException {
       client.close();
     }
@@ -46,6 +46,22 @@ public class ServerIT {
       String resp = client.sendMessage(msg);
       String resp2 = client.sendMessage(msg2);
       assertEquals(msg, resp);
+      assertEquals(msg2, resp2);
+    }
+
+    @Test
+    @DisplayName("server can respond to multiple messages, one client at a time")
+    public void echoAlternatingClients() throws IOException {
+      String msg1 = "Howdy";
+      String resp1 = client.sendMessage(msg1);
+      client.close();
+
+      client = new Client();
+      client.connectTo(Globals.HOST, Globals.PORT);
+      String msg2 = "Pard'ner";
+      String resp2 = client.sendMessage(msg2);
+
+      assertEquals(msg1, resp1);
       assertEquals(msg2, resp2);
     }
   }

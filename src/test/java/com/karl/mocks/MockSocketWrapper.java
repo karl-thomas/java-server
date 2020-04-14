@@ -18,7 +18,7 @@ public class MockSocketWrapper implements WrappedSocket {
   private List<Byte> bytesList = new ArrayList<>();
 
   public MockSocketWrapper() {
-    this.textFromClient = "default";
+    this.textFromClient = "";
   }
 
   public MockSocketWrapper(String textFromClient) {
@@ -41,7 +41,10 @@ public class MockSocketWrapper implements WrappedSocket {
   }
 
   public InputStream getInputStream() {
-    return new ByteArrayInputStream(textFromClient.getBytes());
+    ByteArrayInputStream stream = new ByteArrayInputStream(textFromClient.getBytes());
+    // clearing out text, like calling readLine would
+    textFromClient = "";
+    return stream;
   }
 
   public OutputStream getOutputStream() {

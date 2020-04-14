@@ -34,32 +34,4 @@ public class ServerTest {
   public void serverCanConnectToSocket() throws IOException {
     assertEquals(server.accept(), mocket);
   }
-
-  @Test
-  @DisplayName("server will not write anything if the client didn't send anthing")
-  public void serverWillNotRespondToNothing() throws IOException {
-    String message = "";
-    mocket.textFromClient = message;
-
-    serverSocket.closeAfterConnections(1);
-    server.start();
-
-    String result = mocket.sentToClient();
-
-    assertEquals(message, result);
-  }
-
-  @Test
-  @DisplayName("server writes the same message, with a newline, to the client it was sent from")
-  public void serverCanHandleARequest() throws IOException {
-    String message = "hello there!";
-    mocket.textFromClient = message;
-
-    serverSocket.closeAfterConnections(1);
-    server.start();
-
-    String result = mocket.sentToClient();
-
-    assertEquals(message + "\n", result);
-  }
 }

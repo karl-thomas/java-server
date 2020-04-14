@@ -28,11 +28,6 @@ public class SocketWrapper implements WrappedSocket {
     responseWriter.close();
   }
 
-  // karls ideal <3
-  // public void handle(Function func) {
-  // write(func(getReader));
-  // }
-
   public PrintWriter getWriter() {
     return this.responseWriter;
   }

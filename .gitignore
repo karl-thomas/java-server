@@ -112,3 +112,11 @@ buildNumber.properties
 /.classpath
 /*.project
 /.settings
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+

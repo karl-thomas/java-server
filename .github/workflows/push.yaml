@@ -47,5 +47,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           source: "target/java-server-1.0-SNAPSHOT.jar"
-          target: "~/prod"
+          target: "/opt/prod"
           strip_components: 1

@@ -25,7 +25,7 @@ resource "aws_security_group" "websg" {
 }
 
 resource "aws_instance" "webserver" {
-  ami                    = "ami-db622fcc"
+  ami                    = "ami-f61ab08c"
   instance_type          = "t2.micro"
   key_name               = "deploy-server"
   vpc_security_group_ids = ["${aws_security_group.websg.id}"]

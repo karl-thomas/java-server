@@ -1,11 +1,10 @@
-name: Run Tests
-
-on: [push]
-
+on:
+  push:
+    branches:
+      - test-deploy
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 14
@@ -20,5 +19,12 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
-      - name: Testing with Maven
-        run: mvn verify
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: "target/java-server-1.0-SNAPSHOT.jar"
+          target: "~/prod"
+          strip_components: 1

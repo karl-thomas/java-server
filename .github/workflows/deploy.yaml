@@ -19,7 +19,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
         run: mvn -Dmaven.test.skip=true -B package --file pom.xml
-      - name: copy file via ssh key
+      - name: upload jar file to ec2 box
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -28,3 +28,10 @@ jobs:
           source: "target/java-server-1.0-SNAPSHOT.jar"
           target: "~/prod"
           strip_components: 1
+      - name: start server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: sudo systemctl restart java-server

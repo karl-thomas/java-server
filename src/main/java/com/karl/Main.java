@@ -6,7 +6,14 @@ import com.karl.wrappers.WrappedServerSocket;
 
 public class Main {
   public static void main(String[] args) throws IOException {
-    WrappedServerSocket socket = new ServerSocketWrapper(Globals.PORT);
+    int port;
+    try {
+      port = Integer.parseInt(args[0]);
+    } catch (Exception e) {
+      port = Globals.PORT;
+    }
+
+    WrappedServerSocket socket = new ServerSocketWrapper(port);
     Server server = new Server(socket);
     server.start();
   }

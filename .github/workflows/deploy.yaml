@@ -1,7 +1,5 @@
-on:
-  pull_request:
-    branches:
-      - test-deploy
+name: deploy
+on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest

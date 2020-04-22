@@ -28,6 +28,6 @@ public class EchoHandlerTest {
     handler.run();
     String result = mocket.sentToClient();
 
-    assertEquals(message, result);
+    assertEquals(message, result.trim());
   }
 }

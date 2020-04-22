@@ -15,7 +15,7 @@ public class EchoHandler implements Runnable {
       final BufferedReader requestReader = socket.getReader();
       String inputLine;
       while ((inputLine = requestReader.readLine()) != null) {
-        socket.write(inputLine);
+        socket.write(inputLine + "\n");
       }
       socket.close();
     } catch (Exception e) {

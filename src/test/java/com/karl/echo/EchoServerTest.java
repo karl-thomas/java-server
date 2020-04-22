@@ -1,8 +1,7 @@
-package com.karl;
+package com.karl.echo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
-import com.karl.echo.EchoServer;
 import com.karl.mocks.MockServerSocket;
 import com.karl.mocks.MockSocketWrapper;
 import org.junit.jupiter.api.AfterEach;
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag("unit")
-public class ServerTest {
+public class EchoServerTest {
   private MockSocketWrapper mocket;
   private MockServerSocket serverSocket;
   private EchoServer server;

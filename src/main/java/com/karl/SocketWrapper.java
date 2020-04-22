@@ -21,6 +21,7 @@ public class SocketWrapper implements WrappedSocket {
   public void write(String message) throws IOException {
     PrintWriter writer = getWriter();
     writer.print(message);
+    System.out.println("buffered up: " + message);
     writer.flush();
   }
 

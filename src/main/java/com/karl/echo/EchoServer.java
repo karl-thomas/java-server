@@ -1,14 +1,14 @@
-package com.karl;
+package com.karl.echo;
 
 import java.io.IOException;
 import com.karl.wrappers.WrappedServerSocket;
 import com.karl.wrappers.WrappedSocket;
 
-public class Server {
+public class EchoServer {
   private final WrappedServerSocket serverSocket;
   private WrappedSocket clientSocket;
 
-  public Server(WrappedServerSocket serverSocket) {
+  public EchoServer(WrappedServerSocket serverSocket) {
     this.serverSocket = serverSocket;
   }
 

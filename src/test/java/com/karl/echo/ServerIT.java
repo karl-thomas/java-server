@@ -1,7 +1,8 @@
-package com.karl;
+package com.karl.echo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
+import com.karl.Client;
 import com.karl.constants.Globals;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

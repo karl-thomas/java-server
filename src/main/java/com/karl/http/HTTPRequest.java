@@ -1,4 +1,4 @@
-package com.karl;
+package com.karl.http;
 
 import com.karl.constants.Globals;
 

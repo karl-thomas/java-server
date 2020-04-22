@@ -2,6 +2,7 @@ package com.karl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
+import com.karl.echo.EchoServer;
 import com.karl.mocks.MockServerSocket;
 import com.karl.mocks.MockSocketWrapper;
 import org.junit.jupiter.api.AfterEach;
@@ -14,14 +15,14 @@ import org.junit.jupiter.api.Test;
 public class ServerTest {
   private MockSocketWrapper mocket;
   private MockServerSocket serverSocket;
-  private Server server;
+  private EchoServer server;
 
   @BeforeEach
   public void setupEach() throws IOException {
     mocket = new MockSocketWrapper();
     serverSocket = new MockServerSocket();
     serverSocket.socket = mocket;
-    server = new Server(serverSocket);
+    server = new EchoServer(serverSocket);
   }
 
   @AfterEach

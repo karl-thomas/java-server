@@ -1,4 +1,4 @@
-package com.karl;
+package com.karl.echo;
 
 import java.io.BufferedReader;
 import com.karl.wrappers.WrappedSocket;

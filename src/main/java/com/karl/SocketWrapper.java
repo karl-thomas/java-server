@@ -19,7 +19,9 @@ public class SocketWrapper implements WrappedSocket {
   }
 
   public void write(String message) throws IOException {
-    getWriter().println(message);
+    PrintWriter writer = getWriter();
+    writer.print(message);
+    writer.flush();
   }
 
   public void close() throws IOException {

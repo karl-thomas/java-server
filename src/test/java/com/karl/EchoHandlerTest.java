@@ -20,7 +20,7 @@ public class EchoHandlerTest {
   }
 
   @Test
-  @DisplayName("server writes the same message, with a newline, to the client it was sent from")
+  @DisplayName("server writes the same message, to the client it was sent from")
   public void serverCanHandleARequest() throws IOException {
     String message = "howdy!";
     MockSocketWrapper mocket = new MockSocketWrapper(message);
@@ -28,6 +28,6 @@ public class EchoHandlerTest {
     handler.run();
     String result = mocket.sentToClient();
 
-    assertEquals(message + "\n", result);
+    assertEquals(message, result);
   }
 }

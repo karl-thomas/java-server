@@ -15,9 +15,8 @@ public class HTTPHandler implements Runnable {
     try {
       final BufferedReader requestReader = socket.getReader();
       String requestString = "";
-      String line;
-      while ((line = requestReader.readLine()) != null) {
-        requestString = requestString + line;
+      while (requestReader.ready()) {
+        requestString = requestString + requestReader.readLine();
       }
       HTTPRequest request = new HTTPRequest(requestString);
 

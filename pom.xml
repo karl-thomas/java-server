@@ -50,6 +50,31 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.5</version>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <id>run-acceptance-tests</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>bundle</executable>
+              <workingDirectory>${project.basedir}/http_server_spec</workingDirectory>
+              <name>acceptance-test</name>
+              <arguments>
+                <argument>exec</argument>
+                <argument>spinach</argument>
+                <argument>--tags</argument>
+                <argument>@simple-get</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
 
     <pluginManagement>

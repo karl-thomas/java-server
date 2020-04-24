@@ -1,23 +1,31 @@
 package com.karl.http;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import com.karl.constants.Globals;
 import com.karl.wrappers.WrappedSocket;
 
 public class HTTPHandler implements Runnable {
-  public WrappedSocket socket;
+  private WrappedSocket socket;
 
   public HTTPHandler(WrappedSocket socket) {
     this.socket = socket;
   }
 
+  public String createRequestString() throws IOException {
+    final BufferedReader requestReader = socket.getReader();
+    StringBuilder builder = new StringBuilder();
+
+    while (requestReader.ready()) {
+      builder.append(requestReader.readLine());
+    }
+
+    return builder.toString();
+  }
+
   public void run() {
     try {
-      final BufferedReader requestReader = socket.getReader();
-      String requestString = "";
-      while (requestReader.ready()) {
-        requestString = requestString + requestReader.readLine();
-      }
+      String requestString = createRequestString();
       HTTPRequest request = new HTTPRequest(requestString);
 
       if (request.getMethod().equals("GET") && request.getRoute().equals("/simple_get")) {

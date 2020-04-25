@@ -19,6 +19,6 @@ public class HTTPRequestTest {
   @DisplayName("route returns the https method from the request line")
   public void routeReturnsValueFromRequestLine() {
     final HTTPRequest request = new HTTPRequest(simpleGet);
-    assertEquals("/simple_get", request.getRoute());
+    assertEquals("/simple_get", request.getPath());
   }
 }

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 public class HTTPHandlerTest {
   String simpleGet = "GET /simple_get HTTP/1.1" + Globals.CRLF + Globals.CRLF;
+  String simpleGetWithBody = simpleGet + "heyo it's a body!!";
 
   @Test
   @DisplayName("handler will respond with a 200 okay when a Get request is made to /simple_get")
@@ -39,9 +40,9 @@ public class HTTPHandlerTest {
     @Test
     @DisplayName("should to parse a socket with a outputstream that has http headers, request line, and body into a string")
     public void parseHTTPWithBodyRequestIntoString() throws IOException {
-      WrappedSocket mocket = new MockSocketWrapper(simpleGet);
+      WrappedSocket mocket = new MockSocketWrapper(simpleGetWithBody);
       HTTPHandler handler = new HTTPHandler(mocket);
-      assertThat(handler.createRequestString(), equalToCompressingWhiteSpace(simpleGet));
+      assertThat(handler.createRequestString(), equalToCompressingWhiteSpace(simpleGetWithBody));
     }
   }
 }

@@ -30,7 +30,7 @@ public class HTTPHandler implements Runnable {
       builder.withRequestString(requestString);
       HTTPRequest request = builder.build();
 
-      if (request.getMethod().equals("GET") && request.getPath().equals("/simple_get")) {
+      if (request.method().equals("GET") && request.path().equals("/simple_get")) {
         socket.write("HTTP/1.1 200 OK" + Globals.CRLF + Globals.CRLF);
       }
 

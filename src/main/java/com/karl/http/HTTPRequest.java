@@ -9,11 +9,11 @@ public class HTTPRequest {
     this.path = path;
   }
 
-  public String getMethod() {
+  public String method() {
     return method;
   }
 
-  public String getPath() {
+  public String path() {
     return path;
   }
 }

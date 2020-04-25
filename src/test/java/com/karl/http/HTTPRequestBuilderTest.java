@@ -15,8 +15,8 @@ public class HTTPRequestBuilderTest {
   @DisplayName("build will output an HTTPRequest with whatever data it has")
   public void buildReturnsHTTPRequest() {
     HTTPRequestBuilder builder = new HTTPRequestBuilder();
-    assertThat(builder.build().getMethod(), equalTo(""));
-    assertThat(builder.build().getPath(), equalTo(""));
+    assertThat(builder.build().method(), equalTo(""));
+    assertThat(builder.build().path(), equalTo(""));
   }
 
   @Test
@@ -24,7 +24,7 @@ public class HTTPRequestBuilderTest {
   public void withMethodSetsRequestMethod() {
     HTTPRequestBuilder builder = new HTTPRequestBuilder();
     builder.withMethod("GET");
-    assertThat("GET", equalTo(builder.build().getMethod()));
+    assertThat("GET", equalTo(builder.build().method()));
   }
 
   @Test
@@ -32,7 +32,7 @@ public class HTTPRequestBuilderTest {
   public void withPathSetsRequestPath() {
     HTTPRequestBuilder builder = new HTTPRequestBuilder();
     builder.withPath("/hey_there");
-    assertThat(builder.build().getPath(), equalTo("/hey_there"));
+    assertThat(builder.build().path(), equalTo("/hey_there"));
   }
 
   @Nested
@@ -42,7 +42,7 @@ public class HTTPRequestBuilderTest {
     public void returnsMethodValueFromRequestLine() throws IOException {
       final HTTPRequestBuilder builder = new HTTPRequestBuilder();
       builder.withRequestString(simpleGet);
-      assertThat(builder.build().getMethod(), equalTo("GET"));
+      assertThat(builder.build().method(), equalTo("GET"));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class HTTPRequestBuilderTest {
     public void returnsPathValueFromRequestLine() throws IOException {
       final HTTPRequestBuilder builder = new HTTPRequestBuilder();
       builder.withRequestString(simpleGet);
-      assertThat(builder.build().getPath(), equalTo("/simple_get"));
+      assertThat(builder.build().path(), equalTo("/simple_get"));
     }
   }
 }

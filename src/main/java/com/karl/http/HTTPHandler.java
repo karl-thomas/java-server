@@ -26,7 +26,9 @@ public class HTTPHandler implements Runnable {
   public void run() {
     try {
       String requestString = createRequestString();
-      HTTPRequest request = new HTTPRequest(requestString);
+      HTTPRequestBuilder builder = new HTTPRequestBuilder();
+      builder.withRequestString(requestString);
+      HTTPRequest request = builder.build();
 
       if (request.getMethod().equals("GET") && request.getPath().equals("/simple_get")) {
         socket.write("HTTP/1.1 200 OK" + Globals.CRLF + Globals.CRLF);

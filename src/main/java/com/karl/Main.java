@@ -15,20 +15,21 @@ public class Main {
       port = Globals.PORT;
     }
 
-    String serverType;
+    ServerType serverType;
     try {
-      serverType = args[1];
+      serverType = ServerType.fromString(args[1]);
     } catch (Exception e) {
-      serverType = "http";
+      serverType = ServerType.http;
     }
 
     WrappedServerSocket socket = new ServerSocketWrapper(port);
-    if (serverType.equals("echo")) {
-      EchoServer server = new EchoServer(socket);
-      server.start();
-    } else if (serverType.equals("http")) {
-      HTTPServer server = new HTTPServer(socket);
-      server.start();
+    switch (serverType) {
+      case echo:
+        new EchoServer(socket).start();
+      case http:
+        new HTTPServer(socket).start();
+      default:
+        System.out.println("Please provide either 'echo' or 'http' for the second argument");
     }
   }
 }

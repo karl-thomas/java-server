@@ -14,28 +14,26 @@ public class HTTPRequestBuilderTest {
   @Test
   @DisplayName("build will output an HTTPRequest with whatever data it has")
   public void buildReturnsHTTPRequest() {
-    HTTPRequestBuilder builder = new HTTPRequestBuilder();
-    assertThat(builder.build().method(), equalTo(""));
-    assertThat(builder.build().path(), equalTo(""));
+    HTTPRequest request = new HTTPRequestBuilder().build();
+    assertThat(request.method(), equalTo(HTTPMethod.INVALID));
+    assertThat(request.path(), equalTo(""));
   }
 
   @Nested
-  public class withMEthod {
+  public class withMethod {
     @Test
     @DisplayName("set the HTTP method for the request to be built")
     public void withMethodSetsRequestMethod() {
-      HTTPRequestBuilder builder = new HTTPRequestBuilder();
-      builder.withMethod("GET");
-      assertThat(HTTPMethod.GET, equalTo(builder.build().method()));
+      HTTPRequest request = new HTTPRequestBuilder().withMethod("GET").build();
+      assertThat(request.method(), equalTo(HTTPMethod.GET));
     }
   }
 
   @Test
   @DisplayName("withPath will set the HTTP path for the request to be built")
   public void withPathSetsRequestPath() {
-    HTTPRequestBuilder builder = new HTTPRequestBuilder();
-    builder.withPath("/hey_there");
-    assertThat(builder.build().path(), equalTo("/hey_there"));
+    HTTPRequest request = new HTTPRequestBuilder().withPath("/hey_there").build();
+    assertThat(request.path(), equalTo("/hey_there"));
   }
 
   @Nested
@@ -43,17 +41,15 @@ public class HTTPRequestBuilderTest {
     @Test
     @DisplayName("parses the right method from a stringified request")
     public void returnsMethodValueFromRequestLine() throws IOException {
-      final HTTPRequestBuilder builder = new HTTPRequestBuilder();
-      builder.withRequestString(simpleGet);
-      assertThat(builder.build().method(), equalTo("GET"));
+      final HTTPRequest request = new HTTPRequestBuilder().withRequestString(simpleGet).build();
+      assertThat(request.method(), equalTo(HTTPMethod.GET));
     }
 
     @Test
     @DisplayName("parses the right path from a stringified request")
     public void returnsPathValueFromRequestLine() throws IOException {
-      final HTTPRequestBuilder builder = new HTTPRequestBuilder();
-      builder.withRequestString(simpleGet);
-      assertThat(builder.build().path(), equalTo("/simple_get"));
+      final HTTPRequest request = new HTTPRequestBuilder().withRequestString(simpleGet).build();
+      assertThat(request.path(), equalTo("/simple_get"));
     }
   }
 }

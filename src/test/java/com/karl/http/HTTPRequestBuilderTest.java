@@ -19,12 +19,15 @@ public class HTTPRequestBuilderTest {
     assertThat(builder.build().path(), equalTo(""));
   }
 
-  @Test
-  @DisplayName("withMethod will set the HTTP method for the request to be built")
-  public void withMethodSetsRequestMethod() {
-    HTTPRequestBuilder builder = new HTTPRequestBuilder();
-    builder.withMethod("GET");
-    assertThat("GET", equalTo(builder.build().method()));
+  @Nested
+  public class withMEthod {
+    @Test
+    @DisplayName("set the HTTP method for the request to be built")
+    public void withMethodSetsRequestMethod() {
+      HTTPRequestBuilder builder = new HTTPRequestBuilder();
+      builder.withMethod("GET");
+      assertThat(HTTPMethod.GET, equalTo(builder.build().method()));
+    }
   }
 
   @Test

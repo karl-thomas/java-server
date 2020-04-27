@@ -4,15 +4,19 @@ import java.io.IOException;
 import com.karl.constants.Globals;
 
 class HTTPRequestBuilder {
-  private String method = "";
+  private HTTPMethod method = HTTPMethod.INVALID;
   private String path = "";
 
   public void withMethod(String method) {
+    withMethod(HTTPMethod.fromString(method));
+  }
+
+  public void withMethod(HTTPMethod method) {
     this.method = method;
   }
 
-  public void withPath(String method) {
-    this.path = method;
+  public void withPath(String path) {
+    this.path = path;
   }
 
   public HTTPRequest build() {
@@ -23,7 +27,7 @@ class HTTPRequestBuilder {
     String[] lines = request.split(Globals.CRLF);
     String requestLine = lines[0];
     String[] elements = requestLine.split(" ");
-    withMethod(elements[0]);
+    withMethod(HTTPMethod.fromString(elements[0]));
     withPath(elements[1]);
   }
 }

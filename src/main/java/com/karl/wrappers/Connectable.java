@@ -12,4 +12,6 @@ public interface Connectable {
   public void close() throws IOException;
 
   public void write(String message) throws IOException;
+
+  public String readUntil(String limiter) throws IOException;
 }

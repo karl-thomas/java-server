@@ -25,16 +25,5 @@ public class HTTPHandlerTest {
     String response = "HTTP/1.1 200 OK" + Globals.CRLF + Globals.CRLF;
     assertEquals(response, result);
   }
-
-  @Nested
-  public class createRequestStringMethod {
-    @Test
-    @DisplayName("should to parse a socket with a outputstream that has a request line into a string")
-    public void parseHTTPNoBodyRequestIntoString() throws IOException {
-      Connectable connection = new MockConnection(simpleGet);
-      HTTPHandler handler = new HTTPHandler(connection);
-      assertThat(handler.createRequestString(), equalToCompressingWhiteSpace(simpleGet));
-    }
-  }
 }
 

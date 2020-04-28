@@ -31,6 +31,10 @@ public class MockConnection implements Connectable {
     writer.flush();
   }
 
+  public String readUntil(String limiter) throws IOException {
+    return null;
+  }
+
   public void close() throws IOException {
   }
 

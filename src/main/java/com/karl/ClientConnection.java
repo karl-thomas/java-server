@@ -31,6 +31,19 @@ public class ClientConnection implements Connectable {
     writer.flush();
   }
 
+  public String readUntil(String limiter) throws IOException {
+    int bit;
+    StringBuilder builder = new StringBuilder();
+
+    while ((bit = requestReader.read()) != -1) {
+      builder.append(Character.toString((char) bit));
+      if (builder.toString().contains(limiter))
+        return builder.toString();
+    }
+
+    return builder.toString();
+  }
+
   public void close() throws IOException {
     socket.close();
     requestReader.close();

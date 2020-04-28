@@ -32,7 +32,7 @@ public class MockConnection implements Connectable {
   }
 
   public String readUntil(String limiter) throws IOException {
-    return null;
+    return textFromClient;
   }
 
   public void close() throws IOException {

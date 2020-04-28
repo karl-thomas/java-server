@@ -1,22 +1,23 @@
 package com.karl.mocks;
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import com.karl.wrappers.WrappedServerSocket;
-import com.karl.wrappers.WrappedSocket;
+import com.karl.wrappers.ServerSocketable;
+import com.karl.wrappers.Connectable;
 
-public class MockServerSocket implements WrappedServerSocket {
-  public MockSocketWrapper socket = new MockSocketWrapper();
+public class MockServerSocket implements ServerSocketable {
+  public MockConnection socket = new MockConnection();
   public int acceptCallCount = 0;
+  public int acceptCallLimit = 10;
   public boolean closeHasBeenCalled = false;
 
   public MockServerSocket() throws IOException {
   }
 
-  public WrappedSocket accept() {
-    acceptCallCount++;
+  public Connectable accept() {
+    this.acceptCallCount = this.acceptCallCount + 1;
+    if (acceptCallCount >= acceptCallLimit) {
+      close();
+    }
     return socket;
   }
 
@@ -29,10 +30,6 @@ public class MockServerSocket implements WrappedServerSocket {
   }
 
   public void closeAfterConnections(int timesAcceptIsCalled) {
-    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-    executorService.scheduleAtFixedRate(() -> {
-      if (acceptCallCount >= timesAcceptIsCalled)
-        close();
-    }, 0, 10, TimeUnit.MILLISECONDS);
+    this.acceptCallLimit = timesAcceptIsCalled;
   }
 }

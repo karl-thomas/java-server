@@ -1,7 +1,8 @@
-package com.karl;
+package com.karl.echo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
+import com.karl.Client;
 import com.karl.constants.Globals;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 @TestInstance(Lifecycle.PER_CLASS)
-public class ServerIT {
+public class EchoServerIT {
   @Nested
   @TestInstance(Lifecycle.PER_CLASS)
   @DisplayName("when the server is running")
@@ -35,7 +36,7 @@ public class ServerIT {
     public void echoClientMessage() throws IOException {
       String msg = "howdy";
       String resp = client.sendMessage(msg);
-      assertEquals(msg, resp);
+      assertEquals(msg, resp.trim());
     }
 
     @Test
@@ -45,8 +46,8 @@ public class ServerIT {
       String msg2 = "there";
       String resp = client.sendMessage(msg);
       String resp2 = client.sendMessage(msg2);
-      assertEquals(msg, resp);
-      assertEquals(msg2, resp2);
+      assertEquals(msg, resp.trim());
+      assertEquals(msg2, resp2.trim());
     }
 
     @Test
@@ -61,8 +62,8 @@ public class ServerIT {
       String msg2 = "Pard'ner";
       String resp2 = client.sendMessage(msg2);
 
-      assertEquals(msg1, resp1);
-      assertEquals(msg2, resp2);
+      assertEquals(msg1, resp1.trim());
+      assertEquals(msg2, resp2.trim());
     }
 
     @Test
@@ -75,8 +76,8 @@ public class ServerIT {
       String msg2 = "Pard'ner";
       String resp2 = client2.sendMessage(msg2);
       client2.close();
-      assertEquals(msg1, resp1);
-      assertEquals(msg2, resp2);
+      assertEquals(msg1, resp1.trim());
+      assertEquals(msg2, resp2.trim());
     }
 
   }

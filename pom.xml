@@ -31,6 +31,18 @@
       <version>5.6.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-library</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>java-hamcrest</artifactId>
+      <version>2.0.0.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -49,6 +61,30 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.5</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <id>run-acceptance-tests</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>bundle</executable>
+              <workingDirectory>${basedir}/http_server_spec/</workingDirectory>
+              <name>acceptance-test</name>
+              <arguments>
+                <argument>exec</argument>
+                <argument>spinach</argument>
+                <argument>features/01_getting_started/simple_get.feature:4</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
 
@@ -82,13 +118,13 @@
           <version>0.7</version>
           <executions>
             <execution>
-              <id>java-server</id>
+              <id>run-echo-server</id>
               <phase>pre-integration-test</phase>
               <goals>
                 <goal>start</goal>
               </goals>
               <configuration>
-                <name>java-server</name>
+                <name>run-echo-server</name>
                 <workingDir>src/java</workingDir>
                 <waitForInterrupt>false</waitForInterrupt>
                 <waitAfterLaunch>5</waitAfterLaunch>
@@ -96,6 +132,28 @@
                   <argument>java</argument>
                   <argument>-jar</argument>
                   <argument>${basedir}/target/${project.artifactId}-${project.version}.jar</argument>
+                  <argument>7777</argument>
+                  <argument>echo</argument>
+                </arguments>
+              </configuration>
+            </execution>
+            <execution>
+              <id>run-http-server</id>
+              <phase>pre-integration-test</phase>
+              <goals>
+                <goal>start</goal>
+              </goals>
+              <configuration>
+                <name>run-http-server</name>
+                <workingDir>src/java</workingDir>
+                <waitForInterrupt>false</waitForInterrupt>
+                <waitAfterLaunch>5</waitAfterLaunch>
+                <arguments>
+                  <argument>java</argument>
+                  <argument>-jar</argument>
+                  <argument>${basedir}/target/${project.artifactId}-${project.version}.jar</argument>
+                  <argument>5000</argument>
+                  <argument>http</argument>
                 </arguments>
               </configuration>
             </execution>

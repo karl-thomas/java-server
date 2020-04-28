@@ -1,32 +1,34 @@
 package com.karl;
 
 import java.io.IOException;
-import com.karl.wrappers.WrappedServerSocket;
-import com.karl.wrappers.WrappedSocket;
+import com.karl.wrappers.Connectable;
+import com.karl.wrappers.ServerSocketable;
 
 public class Server {
-  private final WrappedServerSocket serverSocket;
-  private WrappedSocket clientSocket;
+  private final ServerSocketable serverSocket;
+  private Connectable connection;
+  private ProtocolFactoryable handlerFactory;
 
-  public Server(WrappedServerSocket serverSocket) {
+  public Server(ServerSocketable serverSocket, ProtocolFactoryable handlerFactory) {
     this.serverSocket = serverSocket;
+    this.handlerFactory = handlerFactory;
   }
 
   public void start() throws IOException {
     while (!serverSocket.isClosed()) {
-      clientSocket = accept();
-      EchoHandler handler = new EchoHandler(clientSocket);
+      connection = accept();
+      Runnable handler = handlerFactory.create(connection);
       new Thread(handler).start();
     }
   }
 
-  public WrappedSocket accept() throws IOException {
+  public Connectable accept() throws IOException {
     return serverSocket.accept();
   }
 
   public void close() throws IOException {
-    if (clientSocket != null)
-      clientSocket.close();
+    if (connection != null)
+      connection.close();
     if (serverSocket != null)
       serverSocket.close();
   }

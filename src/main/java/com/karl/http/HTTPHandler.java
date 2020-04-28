@@ -3,17 +3,17 @@ package com.karl.http;
 import java.io.BufferedReader;
 import java.io.IOException;
 import com.karl.constants.Globals;
-import com.karl.wrappers.WrappedSocket;
+import com.karl.wrappers.Connectable;
 
 public class HTTPHandler implements Runnable {
-  private WrappedSocket socket;
+  private Connectable connection;
 
-  public HTTPHandler(WrappedSocket socket) {
-    this.socket = socket;
+  public HTTPHandler(Connectable connection) {
+    this.connection = connection;
   }
 
   public String createRequestString() throws IOException {
-    final BufferedReader requestReader = socket.getReader();
+    final BufferedReader requestReader = connection.getReader();
     StringBuilder builder = new StringBuilder();
 
     while (requestReader.ready()) {
@@ -29,10 +29,10 @@ public class HTTPHandler implements Runnable {
       HTTPRequest request = new HTTPRequestBuilder().withRequestString(requestString).build();
 
       if (request.methodIs(HTTPMethod.GET) && request.path().equals("/simple_get")) {
-        socket.write("HTTP/1.1 200 OK" + Globals.CRLF + Globals.CRLF);
+        connection.write("HTTP/1.1 200 OK" + Globals.CRLF + Globals.CRLF);
       }
 
-      socket.close();
+      connection.close();
     } catch (Exception e) {
       System.out.print(e);
     }

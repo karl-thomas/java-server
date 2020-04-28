@@ -1,7 +1,7 @@
 package com.karl;
 
-import com.karl.wrappers.WrappedSocket;
+import com.karl.wrappers.Connectable;
 
 public interface ProtocolFactoryable {
-  public Runnable create(WrappedSocket socket);
+  public Runnable create(Connectable connection);
 }

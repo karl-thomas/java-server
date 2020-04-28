@@ -4,7 +4,7 @@ import java.io.IOException;
 import com.karl.constants.Globals;
 import com.karl.echo.EchoHandlerFactory;
 import com.karl.http.HTTPHandlerFactory;
-import com.karl.wrappers.WrappedServerSocket;
+import com.karl.wrappers.ServerSocketable;
 
 public class Main {
   public static void main(String[] args) throws IOException {
@@ -22,7 +22,7 @@ public class Main {
       serverType = ServerType.http;
     }
 
-    WrappedServerSocket socket = new ServerSocketWrapper(port);
+    ServerSocketable socket = new ServerSocketWrapper(port);
     switch (serverType) {
       case echo:
         ProtocolFactoryable echoFactory = new EchoHandlerFactory();

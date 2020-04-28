@@ -1,11 +1,11 @@
 package com.karl.mocks;
 
 import java.io.IOException;
-import com.karl.wrappers.WrappedServerSocket;
-import com.karl.wrappers.WrappedSocket;
+import com.karl.wrappers.ServerSocketable;
+import com.karl.wrappers.Connectable;
 
-public class MockServerSocket implements WrappedServerSocket {
-  public MockSocketWrapper socket = new MockSocketWrapper();
+public class MockServerSocket implements ServerSocketable {
+  public MockConnection socket = new MockConnection();
   public int acceptCallCount = 0;
   public int acceptCallLimit = 10;
   public boolean closeHasBeenCalled = false;
@@ -13,7 +13,7 @@ public class MockServerSocket implements WrappedServerSocket {
   public MockServerSocket() throws IOException {
   }
 
-  public WrappedSocket accept() {
+  public Connectable accept() {
     this.acceptCallCount = this.acceptCallCount + 1;
     if (acceptCallCount >= acceptCallLimit) {
       close();

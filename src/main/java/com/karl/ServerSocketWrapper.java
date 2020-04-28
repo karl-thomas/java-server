@@ -2,18 +2,18 @@ package com.karl;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import com.karl.wrappers.WrappedServerSocket;
-import com.karl.wrappers.WrappedSocket;
+import com.karl.wrappers.Connectable;
+import com.karl.wrappers.ServerSocketable;
 
-public class ServerSocketWrapper implements WrappedServerSocket {
+public class ServerSocketWrapper implements ServerSocketable {
   private ServerSocket serverSocket;
 
   public ServerSocketWrapper(int port) throws IOException {
     this.serverSocket = new ServerSocket(port);
   }
 
-  public WrappedSocket accept() throws IOException {
-    return new SocketWrapper(serverSocket.accept());
+  public Connectable accept() throws IOException {
+    return new ClientConnection(serverSocket.accept());
   }
 
   public void close() throws IOException {

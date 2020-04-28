@@ -1,7 +1,7 @@
 package com.karl.mocks;
 
 import com.karl.ProtocolFactoryable;
-import com.karl.wrappers.WrappedSocket;
+import com.karl.wrappers.Connectable;
 
 public class MockProtocolFactory implements ProtocolFactoryable {
   public Runnable runner;
@@ -12,7 +12,7 @@ public class MockProtocolFactory implements ProtocolFactoryable {
     return this;
   }
 
-  public Runnable create(WrappedSocket socket) {
+  public Runnable create(Connectable connection) {
     createCalled = createCalled + 1;
     return this.runner;
   }

@@ -1,23 +1,23 @@
 package com.karl.echo;
 
 import java.io.BufferedReader;
-import com.karl.wrappers.WrappedSocket;
+import com.karl.wrappers.Connectable;
 
 public class EchoHandler implements Runnable {
-  public WrappedSocket socket;
+  public Connectable connection;
 
-  public EchoHandler(WrappedSocket socket) {
-    this.socket = socket;
+  public EchoHandler(Connectable connection) {
+    this.connection = connection;
   }
 
   public void run() {
     try {
-      final BufferedReader requestReader = socket.getReader();
+      final BufferedReader requestReader = connection.getReader();
       String inputLine;
       while ((inputLine = requestReader.readLine()) != null) {
-        socket.write(inputLine + "\n");
+        connection.write(inputLine + "\n");
       }
-      socket.close();
+      connection.close();
     } catch (Exception e) {
       System.out.print(e);
     }

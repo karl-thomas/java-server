@@ -5,14 +5,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import com.karl.wrappers.WrappedSocket;
+import com.karl.wrappers.Connectable;
+import com.karl.wrappers.Socketable;
 
-public class SocketWrapper implements WrappedSocket {
-  private Socket socket;
+public class ClientConnection implements Connectable {
+  private Socketable socket;
   private BufferedReader requestReader;
   private PrintWriter responseWriter;
 
-  public SocketWrapper(Socket socket) throws IOException {
+  public ClientConnection(Socket socket) throws IOException {
+    this.socket = new WrappedSocket(socket);
+    this.requestReader = this.createRequestReader(this.socket);
+    this.responseWriter = this.createWriterFor(this.socket);
+  }
+
+  public ClientConnection(Socketable socket) throws IOException {
     this.socket = socket;
     this.requestReader = this.createRequestReader(socket);
     this.responseWriter = this.createWriterFor(socket);
@@ -38,11 +45,11 @@ public class SocketWrapper implements WrappedSocket {
     return this.requestReader;
   }
 
-  private BufferedReader createRequestReader(Socket socket) throws IOException {
-    return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+  private BufferedReader createRequestReader(Socketable socket) throws IOException {
+    return new BufferedReader(new InputStreamReader(socket.in()));
   }
 
-  private PrintWriter createWriterFor(Socket socket) throws IOException {
-    return new PrintWriter(socket.getOutputStream(), true);
+  private PrintWriter createWriterFor(Socketable socket) throws IOException {
+    return new PrintWriter(socket.out(), true);
   }
 }

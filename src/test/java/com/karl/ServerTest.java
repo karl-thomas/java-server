@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.karl.mocks.MockProtocolFactory;
 import com.karl.mocks.MockRunnable;
 import com.karl.mocks.MockServerSocket;
-import com.karl.mocks.MockSocketWrapper;
+import com.karl.mocks.MockConnection;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class ServerTest {
-  private MockSocketWrapper mocket;
+  private MockConnection connection;
   private MockServerSocket serverSocket;
   private MockRunnable threadedProcedure;
   private MockProtocolFactory protocolFactory;
@@ -22,11 +22,11 @@ public class ServerTest {
 
   @BeforeEach
   public void setupEach() throws IOException {
-    mocket = new MockSocketWrapper();
+    connection = new MockConnection();
     serverSocket = new MockServerSocket();
     threadedProcedure = new MockRunnable();
     protocolFactory = new MockProtocolFactory().setRunner(threadedProcedure);
-    serverSocket.socket = mocket;
+    serverSocket.socket = connection;
     server = new Server(serverSocket, protocolFactory);
   }
 
@@ -38,7 +38,7 @@ public class ServerTest {
   @Test
   @DisplayName("server can connect to a client socket")
   public void serverCanConnectToSocket() throws IOException {
-    assertEquals(server.accept(), mocket);
+    assertEquals(server.accept(), connection);
   }
 
   @Test

@@ -16,6 +16,8 @@ public class HTTPHandler implements Runnable {
 
       if (request.methodIs(HTTPMethod.GET) && request.path().equals("/simple_get")) {
         connection.write("HTTP/1.1 200 OK" + Globals.CRLF + Globals.CRLF);
+      } else {
+        connection.write("HTTP/1.1 404 Not Found" + Globals.CRLF + Globals.CRLF);
       }
 
       connection.close();

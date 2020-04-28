@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.*;
 import java.io.IOException;
 import com.karl.ClientConnection;
 import com.karl.constants.Globals;
-import com.karl.mocks.MockConnection;
 import com.karl.mocks.MockSocket;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

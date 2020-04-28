@@ -4,11 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import com.karl.constants.Globals;
 import com.karl.mocks.MockConnection;
-import com.karl.wrappers.Connectable;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class HTTPHandlerTest {

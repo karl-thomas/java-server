@@ -2,8 +2,8 @@ package com.karl;
 
 import java.io.IOException;
 import com.karl.constants.Globals;
-import com.karl.echo.EchoServer;
-import com.karl.http.HTTPServer;
+import com.karl.echo.EchoHandlerFactory;
+import com.karl.http.HTTPHandlerFactory;
 import com.karl.wrappers.WrappedServerSocket;
 
 public class Main {
@@ -25,9 +25,11 @@ public class Main {
     WrappedServerSocket socket = new ServerSocketWrapper(port);
     switch (serverType) {
       case echo:
-        new EchoServer(socket).start();
+        ProtocolFactoryable echoFactory = new EchoHandlerFactory();
+        new Server(socket, echoFactory).start();
       case http:
-        new HTTPServer(socket).start();
+        ProtocolFactoryable httpFactory = new HTTPHandlerFactory();
+        new Server(socket, httpFactory).start();
       default:
         System.out.println("Please provide either 'echo' or 'http' for the second argument");
     }

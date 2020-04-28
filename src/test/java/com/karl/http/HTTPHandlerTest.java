@@ -36,14 +36,6 @@ public class HTTPHandlerTest {
       HTTPHandler handler = new HTTPHandler(mocket);
       assertThat(handler.createRequestString(), equalToCompressingWhiteSpace(simpleGet));
     }
-
-    @Test
-    @DisplayName("should to parse a socket with a outputstream that has http headers, request line, and body into a string")
-    public void parseHTTPWithBodyRequestIntoString() throws IOException {
-      WrappedSocket mocket = new MockSocketWrapper(simpleGetWithBody);
-      HTTPHandler handler = new HTTPHandler(mocket);
-      assertThat(handler.createRequestString(), equalToCompressingWhiteSpace(simpleGetWithBody));
-    }
   }
 }
 

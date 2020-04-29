@@ -21,19 +21,27 @@ public class HTTPHandler implements Runnable {
         .toString();
   }
 
+  public String createRequestString(HTTPStatus status, String headers) {
+    return createRequestString(status, headers, "");
+  }
+
+  public String createRequestString(HTTPStatus status) {
+    return createRequestString(status, "", "");
+  }
+
   public void run() {
     try {
       HTTPRequest request = new HTTPRequestBuilder().withConnection(connection).build();
 
       if (request.methodIs(HTTPMethod.GET) && request.path().equals("/simple_get")) {
-        connection.write(createRequestString(HTTPStatus.Ok, "", ""));
+        connection.write(createRequestString(HTTPStatus.Ok));
       } else if (request.methodIs(HTTPMethod.GET) && request.path().equals("/simple_get_with_body")) {
         connection.write(createRequestString(HTTPStatus.Ok, "", "Hello world"));
       } else if (request.methodIs(HTTPMethod.GET) && request.path().equals("/head_request")) {
         connection
-            .write(createRequestString(HTTPStatus.MethodNotAllowed, "Allow: HEAD, OPTIONS" + Globals.CRLF, ""));
+            .write(createRequestString(HTTPStatus.MethodNotAllowed, "Allow: HEAD, OPTIONS" + Globals.CRLF));
       } else {
-        connection.write(createRequestString(HTTPStatus.NotFound, "", ""));
+        connection.write(createRequestString(HTTPStatus.NotFound));
       }
 
       connection.close();

@@ -80,8 +80,9 @@
               <arguments>
                 <argument>exec</argument>
                 <argument>spinach</argument>
-                <argument>features/01_getting_started/simple_get.feature:4</argument>
+                <argument>features/01_getting_started/simple_get.feature</argument>
                 <argument>features/01_getting_started/page_not_found.feature</argument>
+                <argument>features/01_getting_started/method_not_allowed.feature</argument>
               </arguments>
             </configuration>
           </execution>

@@ -3,7 +3,7 @@ package com.karl.http;
 public enum HTTPStatus {
   Ok("200", "OK"),
   NotFound("404", "Not Found"),
-  MethodNotAllowed("405", "Not Found");
+  MethodNotAllowed("405", "Method Not Allowed");
 
   public String code;
   public String reasonPhrase;

@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.*;
 
 public class HTTPStatusTest {
   @Test
-  public void toStringReturnsTheCodeAndTheReasonPhraseSeperatedByAString() {
+  public void toStringReturnsTheCodeAndTheReasonPhraseSeparatedByASpace() {
     HTTPStatus ok = HTTPStatus.Ok;
     assertThat(ok.code, equalTo("200"));
     assertThat(ok.reasonPhrase, equalTo("OK"));

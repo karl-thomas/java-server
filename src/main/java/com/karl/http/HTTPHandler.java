@@ -12,7 +12,7 @@ public class HTTPHandler implements Runnable {
 
   public String createRequestString(HTTPStatus status, String headers, String body) {
     return new StringBuilder()
-        .append("HTTP/1.1 ")
+        .append(Globals.HTTP_VERSION + " ")
         .append(status)
         .append(Globals.CRLF)
         .append(headers)

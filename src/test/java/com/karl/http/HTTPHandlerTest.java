@@ -38,5 +38,18 @@ public class HTTPHandlerTest {
     assertThat(result, containsString(Globals.CRLF + body));
     assertThat(result, containsString(status + Globals.CRLF + headers + Globals.CRLF + body));
   }
+
+  @Test
+  public void createRequestStringWillAddTheHTTPVersionToTheStatus() {
+    MockConnection mocket = new MockConnection(simpleGet);
+    HTTPHandler handler = new HTTPHandler(mocket);
+    HTTPStatus status = HTTPStatus.Ok;
+    String headers = "and I'm the headers";
+    String body = "and I'm the only one in the right format!";
+
+    String result = handler.createRequestString(status, headers, body);
+    assertThat(result, containsString(Globals.HTTP_VERSION + " " + status));
+  }
+
 }
 

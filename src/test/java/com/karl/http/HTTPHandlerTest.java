@@ -28,15 +28,15 @@ public class HTTPHandlerTest {
   public void createRequestStringWillCombineAStatusHeaderAndABodySeperatedByCRLFs() {
     MockConnection mocket = new MockConnection(simpleGet);
     HTTPHandler handler = new HTTPHandler(mocket);
-    String statusLine = "hey I'm the status line";
+    HTTPStatus status = HTTPStatus.Ok;
     String headers = "and I'm the headers";
     String body = "and I'm the only one in the right format!";
 
-    String result = handler.createRequestString(statusLine, headers, body);
-    assertThat(result, containsString(statusLine + Globals.CRLF));
+    String result = handler.createRequestString(status, headers, body);
+    assertThat(result, containsString(status + Globals.CRLF));
     assertThat(result, containsString(Globals.CRLF + headers + Globals.CRLF));
     assertThat(result, containsString(Globals.CRLF + body));
-    assertThat(result, containsString(statusLine + Globals.CRLF + headers + Globals.CRLF + body));
+    assertThat(result, containsString(status + Globals.CRLF + headers + Globals.CRLF + body));
   }
 }
 

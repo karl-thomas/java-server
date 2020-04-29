@@ -10,9 +10,10 @@ public class HTTPHandler implements Runnable {
     this.connection = connection;
   }
 
-  public String createRequestString(String statusLine, String headers, String body) {
+  public String createRequestString(HTTPStatus status, String headers, String body) {
     return new StringBuilder()
-        .append(statusLine)
+        .append("HTTP/1.1 ")
+        .append(status)
         .append(Globals.CRLF)
         .append(headers)
         .append(Globals.CRLF)
@@ -25,14 +26,14 @@ public class HTTPHandler implements Runnable {
       HTTPRequest request = new HTTPRequestBuilder().withConnection(connection).build();
 
       if (request.methodIs(HTTPMethod.GET) && request.path().equals("/simple_get")) {
-        connection.write(createRequestString("HTTP/1.1 200 OK", "", ""));
+        connection.write(createRequestString(HTTPStatus.Ok, "", ""));
       } else if (request.methodIs(HTTPMethod.GET) && request.path().equals("/simple_get_with_body")) {
-        connection.write(createRequestString("HTTP/1.1 200 OK", "", "Hello world"));
+        connection.write(createRequestString(HTTPStatus.Ok, "", "Hello world"));
       } else if (request.methodIs(HTTPMethod.GET) && request.path().equals("/head_request")) {
         connection
-            .write(createRequestString("HTTP/1.1 405 Method Not Found", "Allow: HEAD, OPTIONS" + Globals.CRLF, ""));
+            .write(createRequestString(HTTPStatus.MethodNotAllowed, "Allow: HEAD, OPTIONS" + Globals.CRLF, ""));
       } else {
-        connection.write(createRequestString("HTTP/1.1 404 Not Found", "", ""));
+        connection.write(createRequestString(HTTPStatus.NotFound, "", ""));
       }
 
       connection.close();
